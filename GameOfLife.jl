@@ -1,34 +1,21 @@
-module GameOfLife
-export gray_img, life
+include("GameOfLife.jl")
 
-using Images
+using .GameOfLife, BenchmarkTools, Plots
 
-big_img(A) = repeat(A, inner=(4,4))
-
-gray_img(A) = Gray.(big_img(A))
-
-function neighborhood(A::Array, I::CartesianIndex)
-    xmax, ymax = size(A)
-    view(A, max(1, I[1]-1) : min(ymax, I[1]+1) , max(1, I[2]-1) : min(ymax, I[2]+1))
+gr()
+function default_state()
+    A = fill(0, 128, 128)
+    A[61:63,61:63] = [1 1 0
+                      0 1 1
+                      0 1 0]
+    return A
 end
 
-function liferule(A, I::CartesianIndex)
-    num_ones = sum(neighborhood(A, I)) - A[I]
-    if num_ones == 3
-        return 1
-    elseif num_ones == 2
-        return A[I]
-    else
-        return 0
+function simulate(A = default_state())
+    for i in 1:100
+        A = life(A)
+        display(plot(gray_img(A)))
+        sleep(0.5)
     end
 end
-
-function life(A::Array)
-    B = zeros(size(A))
-    for I in CartesianIndices(A)
-        B[I] = liferule(A, I)
-    end
-    return B
-end
-
-end
+simulate()
