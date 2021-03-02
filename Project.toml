@@ -1,7 +1,11 @@
 name = "GameOfLife"
 uuid = "1153855b-06f8-4216-baae-5b1f7eb04056"
-authors = ["vasanth <vasanth.mani.vasi.2@gmail.com> and contributors"]
+authors = ["vasanth"]
 version = "0.1.0"
+
+[deps]
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
 julia = "1"
