@@ -1,8 +1,9 @@
-module Game
+module GameOfLife
+export simulate, WorldState
+
 include("World.jl")
 
-using .World, BenchmarkTools, Plots, Images
-
+using Plots, Images
 gr()
 
 function simulate(world = WorldState())
@@ -12,6 +13,4 @@ function simulate(world = WorldState())
     end
 end
 
-world = WorldState(max_days = 100)
-simulate(world)
 end

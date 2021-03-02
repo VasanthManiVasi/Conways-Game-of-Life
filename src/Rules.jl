@@ -1,6 +1,3 @@
-module Rules
-export next
-
 function neighborhood(A::Array, I::CartesianIndex)
     xmax, ymax = size(A)
     view(
@@ -27,6 +24,4 @@ function next(A::Array)
         B[I] = liferule(A, I)
     end
     return B
-end
-
 end

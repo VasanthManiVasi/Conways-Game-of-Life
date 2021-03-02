@@ -1,13 +1,9 @@
-module World
-export WorldState, default_state
-
-include("Rules.jl")
-using .Rules
-
 mutable struct WorldState
     max_days::Int
     current_state::Array
 end
+
+include("Rules.jl")
 
 function WorldState(;
     max_days::Int = 100,
@@ -15,11 +11,11 @@ function WorldState(;
 )
     world_size = size(initial_state)
     if length(world_size) != 2
-        throw("The world is not 2 dimensional")
+        error("The world is not 2 dimensional")
     elseif world_size[1] < 3 || world_size[2] < 3
-        throw("The world is too small (less than 3x3)")
+        error("The world is too small (less than 3x3)")
     elseif state_check(initial_state) == false
-        throw("The cells do not have a binary state (0 or 1)")
+        error("The cells do not have a binary state (0 or 1)")
     end
     WorldState(max_days, initial_state)
 end
@@ -51,6 +47,4 @@ function Base.iterate(world::WorldState, state = 0)
     end
     world.current_state = next(world.current_state)
     world, state + 1
-end
-
 end
